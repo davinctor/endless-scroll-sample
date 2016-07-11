@@ -1,10 +1,12 @@
 package tk.davictor.endless_scroll_sample;
 
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.nav_list_view:
+                setActionBarTitle(R.string.list_view_title);
                 replaceFragment(new ListViewFragment());
                 break;
             case R.id.nav_grid_view:
@@ -67,6 +70,13 @@ public class MainActivity extends AppCompatActivity
         drawerLayout.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    private void setActionBarTitle(@StringRes int stringRes) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setTitle(stringRes);
+        }
     }
 
     private void replaceFragment(Fragment fragment) {
