@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "tk.davictor.endless_scroll_sample"
+        minSdkVersion 11
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        all {
+            buildConfigField "String", "REST_API_BASE_URL", "\"https://api.github.com/\""
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+
+    def supportLibVersion = "24.0.0"
+    def okHttpVersion = "3.2.0"
+    def retrofitVersion = "2.0.1"
+    def glideVersion = "3.7.0"
+    def glideTransformationVerstion = "2.0.1"
+
+    // SupportLibraries
+    compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:design:$supportLibVersion"
+
+    // RecyclerView and CardView
+    compile "com.android.support:cardview-v7:$supportLibVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    //Retrofit And Jackson
+    compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+    compile("com.squareup.retrofit2:retrofit:$retrofitVersion") {
+        exclude module: 'okhttp'
+    }
+    compile "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
+
+    // Glide for images
+    compile "com.github.bumptech.glide:glide:$glideVersion"
+    compile "jp.wasabeef:glide-transformations:$glideTransformationVerstion"
+}

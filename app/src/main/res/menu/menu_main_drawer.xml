@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_list_view"
+            android:icon="@drawable/ic_format_list"
+            android:title="@string/list_view_title" />
+        <item
+            android:id="@+id/nav_grid_view"
+            android:icon="@drawable/ic_grid"
+            android:title="@string/grid_view_title" />
+        <item
+            android:id="@+id/nav_linear_layout_manager"
+            android:icon="@drawable/ic_format_list"
+            android:title="@string/linear_layout_manager_title" />
+        <item
+            android:id="@+id/nav_grid_layout_manager"
+            android:icon="@drawable/ic_grid"
+            android:title="@string/grid_layout_manager_title" />
+        <item
+            android:id="@+id/nav_staggered_grid_layout_manager"
+            android:icon="@drawable/ic_grid"
+            android:title="@string/staggered_grid_layout_manager_title" />
+    </group>
+
+    <item android:title="@string/links_menu_category_title">
+        <menu>
+            <item
+                android:id="@+id/nav_github_link"
+                android:icon="@drawable/ic_github_circle"
+                android:title="@string/github_repository_title" />
+            <item
+                android:id="@+id/nav_site_link"
+                android:icon="@drawable/ic_code_braces"
+                android:title="@string/davinctor_tk_title" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone"
+    tools:visibility="visible"
+    tools:ignore="UseCompoundDrawables,ContentDescription">
+
+    <ImageView
+        android:id="@+id/iv_empty"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_emoticon_neutral"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/empty_view_padding"
+        android:layout_below="@+id/iv_empty"
+        android:text="@string/empty_results"
+        android:gravity="center"
+        android:textColor="@color/secondary_text"
+        style="@style/TextAppearance.AppCompat.Small"/>
+
+    <ImageButton
+        android:id="@+id/btn_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_empty"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_refresh_black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
+
+</RelativeLayout>

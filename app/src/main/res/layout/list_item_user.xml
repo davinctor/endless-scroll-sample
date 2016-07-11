@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="@dimen/user_card_padding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/UserInfo.CardItem">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        style="@style/UserAvatar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="6dp"
+        android:layout_marginEnd="6dp"
+        tools:src="@drawable/ic_face"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:id="@+id/user_info_block1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_toEndOf="@+id/iv_avatar"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/middle1"
+            android:layout_toLeftOf="@+id/middle1"
+            style="@style/UserInfo.Username"
+            tools:text="Fridrich"/>
+
+        <View
+            android:id="@+id/middle1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_toEndOf="@+id/middle1"
+            android:layout_toRightOf="@+id/middle1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="end"
+            style="@style/UserInfo"
+            tools:text="tom"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_info_block1"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:layout_toEndOf="@+id/iv_avatar">
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/middle2"
+            android:layout_toLeftOf="@+id/middle2"
+            style="@style/UserInfo"
+            tools:text="Square"/>
+
+        <View
+            android:id="@+id/middle2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="2dp"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/middle2"
+            android:layout_toRightOf="@+id/middle2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="end"
+            style="@style/UserInfo"
+            tools:text="San Angeles"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

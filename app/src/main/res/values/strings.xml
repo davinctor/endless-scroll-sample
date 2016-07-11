@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">endless-scroll-sample</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="list_view_title">ListView</string>
+    <string name="grid_view_title">GridView</string>
+    <string name="linear_layout_manager_title">LinearLayoutManager</string>
+    <string name="grid_layout_manager_title">GridLayoutManager</string>
+    <string name="staggered_grid_layout_manager_title">StaggeredGridLayoutManager</string>
+
+    <string name="links_menu_category_title">Links</string>
+    <string name="github_repository_title">GitHub Repository</string>
+    <string name="davinctor_tk_title">davinctor.tk</string>
+
+    <string name="nickname">davinctor</string>
+
+    <string name="empty_results">Empty results</string>
+    <string name="reload">Reload</string>
+</resources>
