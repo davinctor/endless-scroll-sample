@@ -16,10 +16,25 @@ public interface UsersProvider {
 
     /**
      * Async getting users
+     * @param limit restrictions number of users per page
+     */
+    @NonNull
+    Future get(int limit, Provider.ActionSuccess<Collection<User>> actionSuccess, Provider.ActionError actionError);
+
+    /**
+     * Async getting users with receiving result from callback
+     * @param limit restrictions number of users per page
+     */
+    @WorkerThread
+    @NonNull
+    Collection<User> get(int limit) throws Exception;
+
+    /**
+     * Async getting users
      * @param since The integer ID of the last User that you've seen.
      */
     @NonNull
-    Future get(int since, Provider.ActionSuccess<Collection<User>> actionSuccess, Provider.ActionError actionError);
+    Future get(Long since, int limit, Provider.ActionSuccess<Collection<User>> actionSuccess, Provider.ActionError actionError);
 
     /**
      * Async getting users with receiving result from callback
@@ -27,7 +42,7 @@ public interface UsersProvider {
      */
     @WorkerThread
     @NonNull
-    Collection<User> get(int since) throws Exception;
+    Collection<User> get(Long since, int limit) throws Exception;
 
     /**
      * Async search users by github login with receiving result from callback
@@ -61,6 +76,5 @@ public interface UsersProvider {
      * @return network user
      */
     @WorkerThread
-    @NonNull
     User userByLogin(@NonNull String login) throws Exception;
 }

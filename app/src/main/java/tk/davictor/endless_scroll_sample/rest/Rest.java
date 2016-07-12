@@ -62,7 +62,7 @@ public class Rest {
 
     public static UsersProvider users() {
         if (instance.usersProvider == null) {
-            instance.usersProvider = new UsersProviderImpl(instance.retrofit);
+            instance.usersProvider = new MockedUsersProviderImpl(instance.retrofit);
         }
         return instance.usersProvider;
     }

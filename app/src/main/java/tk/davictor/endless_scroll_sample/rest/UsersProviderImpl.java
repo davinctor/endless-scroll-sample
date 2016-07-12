@@ -31,8 +31,53 @@ class UsersProviderImpl extends Provider implements UsersProvider {
 
     @NonNull
     @Override
-    public Future get(int since, final ActionSuccess<Collection<User>> actionSuccess, final ActionError actionError) {
-        final Call<Collection<NetworkUser>> call = usersApi.get(since);
+    public Future get(int limit, ActionSuccess<Collection<User>> actionSuccess, ActionError actionError) {
+        final Call<Collection<NetworkUser>> call = usersApi.get(limit);
+        return get(call, actionSuccess, actionError);
+    }
+
+    @NonNull
+    @Override
+    public Collection<User> get(int limit) throws Exception {
+        Response<Collection<NetworkUser>> usersResponse = usersApi.get(limit).execute();
+        if (usersResponse.isSuccessful()) {
+            return fetchUsersDetails(new ArrayList<User>(usersResponse.body()));
+        } else {
+            throw ApiError.parseError(usersResponse);
+        }
+    }
+
+    @NonNull
+    @Override
+    public Future get(Long since, int limit, ActionSuccess<Collection<User>> actionSuccess, ActionError actionError) {
+        final Call<Collection<NetworkUser>> call;
+        if (since == null) {
+            call = usersApi.get(limit);
+        } else {
+            call = usersApi.get(since, limit);
+        }
+        return get(call, actionSuccess, actionError);
+    }
+
+    @NonNull
+    @Override
+    public Collection<User> get(Long since, int limit) throws Exception {
+        Response<Collection<NetworkUser>> usersResponse;
+        if (since == null) {
+            usersResponse = usersApi.get(limit).execute();
+        } else {
+            usersResponse = usersApi.get(since, limit).execute();
+        }
+        if (usersResponse.isSuccessful()) {
+            return fetchUsersDetails(new ArrayList<User>(usersResponse.body()));
+        } else {
+            throw ApiError.parseError(usersResponse);
+        }
+    }
+
+    private Future get(final Call<Collection<NetworkUser>> call,
+                     final ActionSuccess<Collection<User>> actionSuccess,
+                     final ActionError actionError) {
         return ioExecutor().submit(new Runnable() {
             @Override
             public void run() {
@@ -59,17 +104,6 @@ class UsersProviderImpl extends Provider implements UsersProvider {
                 }
             }
         });
-    }
-
-    @NonNull
-    @Override
-    public Collection<User> get(int since) throws Exception {
-        Response<Collection<NetworkUser>> usersResponse = usersApi.get(since).execute();
-        if (usersResponse.isSuccessful()) {
-            return fetchUsersDetails(new ArrayList<User>(usersResponse.body()));
-        } else {
-            throw ApiError.parseError(usersResponse);
-        }
     }
 
     @NonNull
@@ -167,7 +201,10 @@ class UsersProviderImpl extends Provider implements UsersProvider {
 
     private interface UsersApi {
         @GET(Endpoints.USERS)
-        Call<Collection<NetworkUser>> get(@Query("since") int lastId);
+        Call<Collection<NetworkUser>> get(@Query("limit") int limit);
+
+        @GET(Endpoints.USERS)
+        Call<Collection<NetworkUser>> get(@Query("since") long lastId, @Query("limit") int limit);
 
         @GET(Endpoints.SEARCH_USERS)
         Call<SearchUsersResponse> search(@Query("q") String login, @Query("page") int page, @Query("per_page") int perPage);

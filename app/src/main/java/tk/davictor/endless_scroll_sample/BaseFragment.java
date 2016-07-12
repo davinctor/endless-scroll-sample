@@ -20,16 +20,53 @@ import tk.davictor.endless_scroll_sample.rest.Rest;
 public abstract class BaseFragment extends Fragment
         implements Provider.ActionSuccess<Collection<User>>, Provider.ActionError {
 
+    private static final long NO_USER_ID = -1L;
+
+    private static final String EXTRA_LAST_ID = "EXTRA_LAST_ID";
+    private static final String EXTRA_LAST_OFFSET = "EXTRA_LAST_OFFSET";
+
     private List<Future> futures;
+    private int lastOffset;
+    private Long lastUserId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         futures = new ArrayList<>();
+        if (savedInstanceState != null) {
+            lastOffset = savedInstanceState.getInt(EXTRA_LAST_OFFSET, 0);
+            if (savedInstanceState.containsKey(EXTRA_LAST_ID)) {
+                lastUserId = savedInstanceState.getLong(EXTRA_LAST_ID);
+            }
+        }
     }
 
-    protected void loadUsers(int lastUserId) {
-        Future requestFuture = Rest.users().get(lastUserId, this, this);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(EXTRA_LAST_OFFSET, lastOffset);
+        if (lastUserId != null) {
+            outState.putLong(EXTRA_LAST_ID, lastUserId);
+        }
+    }
+
+    protected Long getLastUserId() {
+        return lastUserId;
+    }
+
+    protected int lastOffset() {
+        return lastOffset;
+    }
+
+    protected abstract void loadNextPortion(int page, int offset);
+
+    protected void loadUsers(int limit, long... lastUserId) {
+        if (lastUserId != null && lastUserId.length > 0) {
+            this.lastUserId = lastUserId[0];
+        } else {
+            this.lastUserId = null;
+        }
+        Future requestFuture = Rest.users().get(this.lastUserId, limit, this, this);
         // save request to list
         futures.add(requestFuture);
     }

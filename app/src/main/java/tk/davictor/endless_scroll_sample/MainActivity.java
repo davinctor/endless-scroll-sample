@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if (savedInstanceState == null) {
+            // also will set title and replace fragment
+            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_list_view));
+        }
     }
 
     @Override

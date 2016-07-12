@@ -22,6 +22,7 @@ import tk.davictor.endless_scroll_sample.model.User;
 public class ListViewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final int USERS_LIMIT = 30;
+    private static final int VISIBLE_THRESHOLD = 10;
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private ListViewAdapter adapter;
@@ -35,12 +36,27 @@ public class ListViewFragment extends BaseFragment implements SwipeRefreshLayout
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
         ListView listView = (ListView) root.findViewById(R.id.lv_list);
         emptyView = root.findViewById(R.id.empty_view);
+        ImageButton btnEmpty = (ImageButton) emptyView.findViewById(R.id.btn_empty);
 
         swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+
         adapter = new ListViewAdapter(getContext());
         listView.setAdapter(adapter);
 
-        ImageButton btnEmpty = (ImageButton) emptyView.findViewById(R.id.btn_empty);
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        //                              MAIN PART OF THIS ALL SAMPLE
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        listView.setOnScrollListener(new EndlessScrollListener(VISIBLE_THRESHOLD) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                loadNextPortion(page, totalItemsCount);
+            }
+        });
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        // END
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
         btnEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +68,30 @@ public class ListViewFragment extends BaseFragment implements SwipeRefreshLayout
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (adapter.isEmpty()) {
+            onRefresh();
+        }
+    }
+
+    @Override
     public void onRefresh() {
-        loadUsers(1);
+        swipeRefreshLayout.setRefreshing(true);
+        loadUsers(USERS_LIMIT);
+    }
+
+    @Override
+    protected void loadNextPortion(int page, int offset) {
+        // pagination by last item id
+        int lastItemPosition = adapter.getCount() - 1;
+        if (lastItemPosition > 0) {
+            // get last user id
+            long lastUserId = adapter.getItem(lastItemPosition).id();
+            // load other users begin from user with 'lastUserId'
+            swipeRefreshLayout.setRefreshing(true);
+            loadUsers(USERS_LIMIT, lastUserId);
+        }
     }
 
     @Override
@@ -73,6 +111,9 @@ public class ListViewFragment extends BaseFragment implements SwipeRefreshLayout
         }
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
+        }
+        if (getLastUserId() == null) {
+            adapter.clear();
         }
         adapter.addAll(users);
     }
