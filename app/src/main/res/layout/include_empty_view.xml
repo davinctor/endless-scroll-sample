@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/iv_empty"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_emoticon_neutral"
         android:layout_centerHorizontal="true"/>
 
@@ -20,21 +20,12 @@
         android:id="@+id/tv_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/empty_view_padding"
+        android:layout_marginTop="@dimen/empty_view_margin_vertical"
+        android:layout_marginBottom="@dimen/empty_view_margin_vertical"
         android:layout_below="@+id/iv_empty"
         android:text="@string/empty_results"
         android:gravity="center"
         android:textColor="@color/secondary_text"
-        style="@style/TextAppearance.AppCompat.Small"/>
-
-    <ImageButton
-        android:id="@+id/btn_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_empty"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_refresh_black"
-        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
+        style="@style/TextAppearance.AppCompat.Medium"/>
 
 </RelativeLayout>

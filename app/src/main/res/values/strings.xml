@@ -12,7 +12,9 @@
 
     <string name="links_menu_category_title">Links</string>
     <string name="github_repository_title">GitHub Repository</string>
+    <string name="github_repository_link">https://github.com/davinctor/endless-scroll-sample</string>
     <string name="davinctor_tk_title">davinctor.tk</string>
+    <string name="davinctor_tk_link">http://davinctor.tk</string>
 
     <string name="nickname">davinctor</string>
 

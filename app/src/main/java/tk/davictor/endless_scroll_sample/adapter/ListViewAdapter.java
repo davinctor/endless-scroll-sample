@@ -1,6 +1,7 @@
 package tk.davictor.endless_scroll_sample.adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,17 @@ public class ListViewAdapter extends ArrayAdapter<User> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    @LayoutRes
+    protected int getLayoutResId() {
+        return R.layout.list_item_user;
+    }
+
     @SuppressWarnings("UnusedAssignment")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         UserViewHolder holder = null;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.list_item_user, parent, false);
+            convertView = layoutInflater.inflate(getLayoutResId(), parent, false);
             holder = new UserViewHolder(convertView);
             convertView.setTag(holder);
         } else {

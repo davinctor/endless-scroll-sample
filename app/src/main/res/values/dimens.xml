@@ -6,6 +6,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="empty_view_padding">12dp</dimen>
+    <dimen name="empty_view_margin_vertical">10dp</dimen>
     <dimen name="user_card_padding">20dp</dimen>
+    <dimen name="user_card_margin_vertical">8dp</dimen>
+    <dimen name="user_card_margin_horizontal">4dp</dimen>
 </resources>

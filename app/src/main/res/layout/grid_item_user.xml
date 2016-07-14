@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    FrameLayout needs for app:contentPadding at CardView, because
+     GridView has AbsListView.LayoutParams, not ViewGroup.LayoutParams.
+    That's why applying padding on root element not have any effects.
+    Based on comment: http://stackoverflow.com/questions/24564233/cardview-layout-margin-not-working#comment49160661_25561460
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        style="@style/UserInfo.CardItem.CardView"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/user_card_margin_vertical"
+        android:layout_marginBottom="@dimen/user_card_margin_vertical"
+        android:layout_marginLeft="@dimen/user_card_margin_horizontal"
+        android:layout_marginStart="@dimen/user_card_margin_horizontal"
+        android:layout_marginRight="@dimen/user_card_margin_horizontal"
+        android:layout_marginEnd="@dimen/user_card_margin_horizontal"
+        app:cardElevation="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="6dp"
+        app:contentPadding="@dimen/user_card_padding">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                style="@style/GridUserAvatar"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                tools:src="@drawable/ic_face"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="center_horizontal"
+                style="@style/UserInfo.Username"
+                tools:text="Fridrich"/>
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                style="@style/UserInfo"
+                tools:text="tom"/>
+
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="4dp"
+                style="@style/UserInfo"
+                tools:text="Square"/>
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="end"
+                style="@style/UserInfo"
+                tools:text="San Angeles"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
