@@ -26,8 +26,9 @@ public class GridLayoutManagerFragment extends RecyclerViewFragment {
          *                                  MAIN PART OF THIS ALL SAMPLE
          *******************************************************************************************/
         // Set EndlessScrollListener
-        EndlessRecyclerViewScrollListener.create(recyclerView, layoutManager, VISIBLE_THRESHOLD)
-                .setOnLoadMoreListener(new EndlessRecyclerViewScrollListener.OnLoadMoreListener() {
+        EndlessRecyclerViewScrollListenerV2.create(recyclerView, layoutManager)
+                .setVisibleThreshold(VISIBLE_THRESHOLD)
+                .setOnLoadMoreListener(new EndlessRecyclerViewScrollListenerV2.OnLoadMoreListener() {
                     @Override
                     public void onLoadMore(int page, int totalItemsCount) {
                         loadNextPortion(page, totalItemsCount);
