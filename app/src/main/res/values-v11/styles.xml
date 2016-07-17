@@ -2,6 +2,7 @@
 <resources>
 
     <style name="UserInfo.CardItem">
+        <item name="android:clickable">true</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 

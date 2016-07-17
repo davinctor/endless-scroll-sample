@@ -1,4 +1,4 @@
-package tk.davictor.endless_scroll_sample;
+package tk.davictor.endless_scroll_sample.adapter_view;
 
 import android.view.View;
 import android.widget.AbsListView;
@@ -7,12 +7,13 @@ import android.widget.GridView;
 
 import java.util.Random;
 
-import tk.davictor.endless_scroll_sample.adapter.GridViewAdapter;
+import tk.davictor.endless_scroll_sample.R;
+import tk.davictor.endless_scroll_sample.adapter_view.adapter.GridViewAdapter;
 import tk.davictor.endless_scroll_sample.model.User;
 
 /**
  *
- * Sample with using {@link GridView} with {@link EndlessScrollListener}
+ * Sample with using {@link GridView} with {@link EndlessAdapterViewScrollListener}
  *
  * 14.07.2016
  * Created by @davinctor.

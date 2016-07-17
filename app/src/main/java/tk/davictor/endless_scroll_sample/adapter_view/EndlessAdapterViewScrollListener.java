@@ -1,4 +1,4 @@
-package tk.davictor.endless_scroll_sample;
+package tk.davictor.endless_scroll_sample.adapter_view;
 
 import android.widget.AbsListView;
 
@@ -8,7 +8,7 @@ import android.widget.AbsListView;
  * @see  <a href="http://davinctor.tk/endless_scrolling_listview_gridview_recyclerview">Link to article</a>
  */
 
-public abstract class EndlessScrollListener implements AbsListView.OnScrollListener {
+public abstract class EndlessAdapterViewScrollListener implements AbsListView.OnScrollListener {
     // The minimum number of items to have below your current scroll position
     // before loading more.
     private int visibleThreshold = 5;
@@ -21,14 +21,14 @@ public abstract class EndlessScrollListener implements AbsListView.OnScrollListe
     // Sets the starting page index
     private int startingPageIndex = 0;
 
-    public EndlessScrollListener() {
+    public EndlessAdapterViewScrollListener() {
     }
 
-    public EndlessScrollListener(int visibleThreshold) {
+    public EndlessAdapterViewScrollListener(int visibleThreshold) {
         this.visibleThreshold = visibleThreshold;
     }
 
-    public EndlessScrollListener(int visibleThreshold, int startPage) {
+    public EndlessAdapterViewScrollListener(int visibleThreshold, int startPage) {
         this.visibleThreshold = visibleThreshold;
         this.startingPageIndex = startPage;
         this.currentPage = startPage;

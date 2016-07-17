@@ -18,6 +18,12 @@ import android.view.View;
 
 import java.util.List;
 
+import tk.davictor.endless_scroll_sample.adapter_view.GridViewFragment;
+import tk.davictor.endless_scroll_sample.adapter_view.ListViewFragment;
+import tk.davictor.endless_scroll_sample.recycler_view.GridLayoutManagerFragment;
+import tk.davictor.endless_scroll_sample.recycler_view.LinearLayoutManagerFragment;
+import tk.davictor.endless_scroll_sample.recycler_view.StaggeredGridLayoutManagerFragment;
+
 @SuppressWarnings("FieldCanBeLocal")
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,10 +96,22 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
             case R.id.nav_linear_layout_manager:
+                setActionBarTitle(R.string.linear_layout_manager_title);
+                if (!existsInFragmentManager(LinearLayoutManagerFragment.class)) {
+                    replaceFragment(new LinearLayoutManagerFragment());
+                }
                 break;
             case R.id.nav_grid_layout_manager:
+                setActionBarTitle(R.string.grid_layout_manager_title);
+                if (!existsInFragmentManager(GridLayoutManagerFragment.class)) {
+                    replaceFragment(new GridLayoutManagerFragment());
+                }
                 break;
             case R.id.nav_staggered_grid_layout_manager:
+                setActionBarTitle(R.string.staggered_grid_layout_manager_title);
+                if (!existsInFragmentManager(StaggeredGridLayoutManagerFragment.class)) {
+                    replaceFragment(new StaggeredGridLayoutManagerFragment());
+                }
                 break;
             case R.id.nav_github_link:
                 openLink(getString(R.string.github_repository_link));

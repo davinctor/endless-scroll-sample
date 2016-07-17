@@ -1,4 +1,4 @@
-package tk.davictor.endless_scroll_sample.adapter;
+package tk.davictor.endless_scroll_sample.adapter_view.adapter;
 
 import android.content.Context;
 

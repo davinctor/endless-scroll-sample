@@ -1,43 +1,52 @@
-package tk.davictor.endless_scroll_sample;
+package tk.davictor.endless_scroll_sample.recycler_view;
 
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.util.Collection;
+import java.util.Random;
 
+import tk.davictor.endless_scroll_sample.BaseFragment;
+import tk.davictor.endless_scroll_sample.R;
+import tk.davictor.endless_scroll_sample.recycler_view.adapter.RecyclerViewAdapter;
 import tk.davictor.endless_scroll_sample.model.User;
 
 /**
- *
- * Fragment with base list functionality
- *
- * 15.07.2016
+ * 17.07.2016
  * Created by @davinctor.
  */
-public abstract class AdapterViewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public abstract class RecyclerViewFragment extends BaseFragment
+        implements SwipeRefreshLayout.OnRefreshListener {
+
+    static final Random rand = new Random();
+    static final int GRID_VIEW_MIN_COLUMNS = 2;
+    static final int GRID_VIEW_MAX_COLUMNS = 3;
 
     private static final int USERS_LIMIT = 15;
-    private static final int VISIBLE_THRESHOLD = 8;
+    static final int VISIBLE_THRESHOLD = 8;
 
     private SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayAdapter<User> adapter;
+    private RecyclerViewAdapter adapter;
     private View emptyView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(getLayoutResId(), container, false);
+        View root = inflater.inflate(R.layout.content_main_recycler_view, container, false);
 
         swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipe_refresh_layout);
-        AbsListView absListView = initAndGetAdapterView(root);
+        RecyclerView rvList = (RecyclerView) root.findViewById(R.id.rv_list);
+
+        initRecyclerView(rvList);
+
+        adapter = initAndGetAdapter();
+        rvList.setAdapter(adapter);
 
         emptyView = root.findViewById(R.id.empty_view);
 
@@ -45,31 +54,12 @@ public abstract class AdapterViewFragment extends BaseFragment implements SwipeR
         swipeRefreshLayout.setColorSchemeResources(R.color.blue, R.color.red,
                 R.color.orange, R.color.green);
 
-        adapter = initAndGetAdapter();
-        absListView.setAdapter(adapter);
-
-        /*******************************************************************************************
-         *                                  MAIN PART OF THIS ALL SAMPLE
-         *******************************************************************************************/
-        absListView.setOnScrollListener(new EndlessScrollListener(VISIBLE_THRESHOLD) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount) {
-                loadNextPortion(page, totalItemsCount);
-            }
-        });
-        /*******************************************************************************************
-         *                                         END
-         ******************************************************************************************/
-
         return root;
     }
 
-    @LayoutRes
-    protected abstract int getLayoutResId();
+    protected abstract void initRecyclerView(RecyclerView recyclerView);
 
-    protected abstract AbsListView initAndGetAdapterView(View rootView);
-
-    protected abstract ArrayAdapter<User> initAndGetAdapter();
+    protected abstract RecyclerViewAdapter initAndGetAdapter();
 
     @Override
     public void onStart() {
@@ -95,7 +85,7 @@ public abstract class AdapterViewFragment extends BaseFragment implements SwipeR
     @Override
     protected void loadNextPortion(int page, int offset) {
         // pagination by last item id
-        int lastItemPosition = adapter.getCount() - 1;
+        int lastItemPosition = adapter.getItemCount() - 1;
         if (lastItemPosition > 0) {
             // get last user id
             long lastUserId = adapter.getItem(lastItemPosition).id();
@@ -130,11 +120,15 @@ public abstract class AdapterViewFragment extends BaseFragment implements SwipeR
             swipeRefreshLayout.setRefreshing(false);
         }
 
+        int count = adapter.getItemCount();
+        // if it was refresh -> delete old users from list
         if (getLastUserId() == null) {
             adapter.clear();
+            adapter.notifyItemRangeRemoved(0, count);
+            count = 0;
         }
 
         adapter.addAll(users);
+        adapter.notifyItemRangeInserted(count, users.size());
     }
-
 }
